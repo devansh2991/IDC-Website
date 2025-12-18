@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light paper/cream theme like reference */
+    --background: 40 15% 90%;
+    --foreground: 0 0% 12%;
+    --card: 40 10% 88%;
+    --card-foreground: 0 0% 12%;
+    --popover: 40 15% 90%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 70 85% 50%;
+    --primary-foreground: 0 0% 12%;
+    --secondary: 40 10% 85%;
+    --secondary-foreground: 0 0% 15%;
+    --muted: 40 8% 75%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 70 85% 50%;
+    --accent-foreground: 0 0% 12%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 10% 80%;
+    --input: 40 10% 80%;
+    --ring: 70 85% 50%;
+    --radius: 0.75rem;
+
+    /* Typography */
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Sidebar */
+    --sidebar-background: 40 15% 90%;
+    --sidebar-foreground: 0 0% 12%;
+    --sidebar-primary: 0 0% 12%;
+    --sidebar-primary-foreground: 40 15% 90%;
+    --sidebar-accent: 40 10% 85%;
+    --sidebar-accent-foreground: 0 0% 12%;
+    --sidebar-border: 40 10% 80%;
+    --sidebar-ring: 0 0% 12%;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 40 15% 92%;
+    --card: 0 0% 12%;
+    --card-foreground: 40 15% 92%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 40 15% 92%;
+    --primary: 70 85% 50%;
+    --primary-foreground: 0 0% 10%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 40 15% 92%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 40 10% 60%;
+    --accent: 70 85% 50%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 70 85% 50%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 40 15% 92%;
+    --sidebar-primary: 40 15% 92%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 40 15% 92%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 40 15% 92%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
