@@ -94,7 +94,6 @@ const MentorsSection = () => {
 
     if (!trigger || !cards) return;
 
-    // Compute start/end positions so the FIRST card is visually centered at start
     const compute = () => {
       const totalWidth = cards.scrollWidth;
       const containerEl = trigger.querySelector('.container') as HTMLElement | null;
@@ -117,11 +116,9 @@ const MentorsSection = () => {
       return { startX, endX, distance, maxScroll };
     };
 
-    // Set initial centered position (first card centered)
     const init = compute();
     gsap.set(cards, { x: init.startX });
 
-    // Keep start position correct on refresh/resizes
     const onRefreshInit = () => {
       const m = compute();
       gsap.set(cards, { x: m.startX });
@@ -129,7 +126,7 @@ const MentorsSection = () => {
     ScrollTrigger.addEventListener('refreshInit', onRefreshInit);
 
     const ctx = gsap.context(() => {
-      // Horizontal scroll animation
+
       gsap.to(cards, {
         x: () => compute().endX,
         ease: "none",
@@ -144,7 +141,6 @@ const MentorsSection = () => {
         },
       });
 
-      // Parallax effect on individual cards
       const cardElements = cards.querySelectorAll('.mentor-card');
       cardElements.forEach((card, i) => {
         gsap.to(card, {
@@ -181,7 +177,7 @@ const MentorsSection = () => {
     <>
       <section ref={sectionRef} className="relative bg-background">
         <div ref={triggerRef} className="min-h-screen flex flex-col justify-center overflow-hidden">
-          {/* Background noise texture */}
+
           <div 
             className="absolute inset-0 opacity-30 pointer-events-none"
             style={{ 
@@ -189,11 +185,10 @@ const MentorsSection = () => {
             }}
           />
 
-          {/* Dot indicator */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-foreground/70" />
 
           <div className="container mx-auto px-6 md:px-12 relative z-10">
-            {/* Header */}
+
             <div className="max-w-xl mb-16">
               <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-medium text-foreground mb-6 leading-[1.1] italic">
                 Mentors of the club.
@@ -203,7 +198,6 @@ const MentorsSection = () => {
                 we've curated the best mentors of the industry to bring the best experience out there.
               </p>
 
-              {/* Meet them CTA */}
               <div className="flex items-center gap-3 cursor-pointer group">
                 <ChevronDown className="w-4 h-4 text-foreground transition-transform group-hover:translate-y-1" />
                 <span className="font-body text-sm text-muted-foreground group-hover:text-foreground transition-colors">
@@ -212,7 +206,6 @@ const MentorsSection = () => {
               </div>
             </div>
 
-            {/* Horizontal Cards Container */}
             <div className="relative">
               <div 
                 ref={cardsRef}
@@ -232,7 +225,6 @@ const MentorsSection = () => {
         </div>
       </section>
 
-      {/* Mentor Detail Overlay */}
       <MentorOverlay
         mentor={selectedMentor}
         isOpen={isOverlayOpen}

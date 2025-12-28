@@ -17,25 +17,23 @@ export const CardStack = ({ cards }: CardStackProps) => {
 
     const cardElements = cardsRef.current.filter(Boolean);
 
-    // Create timeline for card unwrapping with pinning
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: stackRef.current,
         start: "top top",
-        end: "+=2000", // Scroll distance for animation
+        end: "+=2000",
         scrub: 1,
-        pin: true, // Pin the section while animating
+        pin: true,
         anticipatePin: 1,
       },
     });
 
-    // Animate each card to fan out horizontally with more dramatic spread
     cardElements.forEach((card, index) => {
       const totalCards = cardElements.length;
       const centerIndex = (totalCards - 1) / 2;
-      const offset = (index - centerIndex) * 280; // Much larger horizontal spacing for full unwrap
-      const rotation = (index - centerIndex) * 8; // More dramatic rotation
-      const verticalOffset = Math.abs(index - centerIndex) * 15; // More vertical offset
+      const offset = (index - centerIndex) * 280;
+      const rotation = (index - centerIndex) * 8;
+      const verticalOffset = Math.abs(index - centerIndex) * 15;
 
       tl.to(
         card,
@@ -50,7 +48,6 @@ export const CardStack = ({ cards }: CardStackProps) => {
     });
 
     return () => {
-      // Clean up only this timeline and its ScrollTrigger
       tl.scrollTrigger?.kill();
       tl.kill();
     };
@@ -78,7 +75,6 @@ export const CardStack = ({ cards }: CardStackProps) => {
                 perspective: "1000px",
               }}
             >
-              {/* Front Face */}
               <div
                 className="card-face front absolute inset-0 rounded-2xl overflow-hidden"
                 style={{
@@ -95,7 +91,6 @@ export const CardStack = ({ cards }: CardStackProps) => {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
               </div>
               
-              {/* Back Face */}
               <div
                 className="card-face back absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br from-primary via-accent to-primary"
                 style={{
