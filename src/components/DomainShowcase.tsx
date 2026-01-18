@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import blockchainImg from "../Assets/Images/blockchain-technology-cartoon-illustration.jpg";
+import hackathonImg from "../Assets/Images/colleagues-collaborating-cyberpunk-setting.jpg";
+import aiImg from "../Assets/Images/cartoon-woman-wearing-vr-glasses.jpg";
+import cyberImg from "../Assets/Images/cybersecurity-concept-collage-design.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -8,22 +12,22 @@ const domains = [
   {
     title: "Blockchain",
     desc: "Decentralized systems, smart contracts, and Web3 innovation.",
-    image: "/src/Assets/Images/blockchain-technology-cartoon-illustration.jpg",
+    image: blockchainImg,
   },
   {
     title: "Hackathons",
     desc: "Rapid problem solving through real-world challenges.",
-    image: "/src/Assets/Images/colleagues-collaborating-cyberpunk-setting.jpg",
+    image: hackathonImg,
   },
   {
     title: "AI & ML",
     desc: "Intelligent systems powered by data and algorithms.",
-    image: "/src/Assets/Images/cartoon-woman-wearing-vr-glasses.jpg",
+    image: aiImg,
   },
   {
     title: "Cybersecurity",
     desc: "Protecting systems, networks, and digital assets.",
-    image: "/src/Assets/Images/cybersecurity-concept-collage-design.jpg",
+    image: cyberImg,
   },
 ];
 

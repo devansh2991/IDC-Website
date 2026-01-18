@@ -101,7 +101,7 @@ const HomePage = () => {
           loop
           playsInline
         >
-          <source src="/src/Assets/Video/Hero (2).mp4" type="video/mp4" />
+          <source src="/Hero (3).mp4" type="video/mp4" />
         </video>
 
         <button

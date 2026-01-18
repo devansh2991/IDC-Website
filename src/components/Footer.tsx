@@ -2,14 +2,18 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { Github, Twitter, Youtube } from "lucide-react";
+import png1 from "../Assets/Images/png-1.png";
+import png2 from "../Assets/Images/png-2.png";
+import png3 from "../Assets/Images/png-3.png";
+import png4 from "../Assets/Images/png-4.png";
 
 gsap.registerPlugin(Draggable);
 
 const stickers = [
-  { id: 1, src: "src\\Assets\\Images\\png-4.png", x: 1200, y: 100 },
-  { id: 2, src: "src\\Assets\\Images\\png-2.png", x: 350, y: 100 },
-  { id: 3, src: "src\\Assets\\Images\\png-3.png", x: 1000, y: 120 },
-  { id: 4, src: "src\\Assets\\Images\\png-1.png", x: 120, y: 40 },
+  { id: 1, src: png4, x: 1200, y: 100 },
+  { id: 2, src: png2, x: 350, y: 100 },
+  { id: 3, src: png3, x: 1000, y: 120 },
+  { id: 4, src: png1, x: 120, y: 40 },
 ];
 
 const Footer = () => {

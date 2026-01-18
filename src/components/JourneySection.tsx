@@ -1,14 +1,18 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import img1 from "../Assets/Images/img-1.jpg";
+import img2 from "../Assets/Images/img-2.jpg";
+import img3 from "../Assets/Images/img-3.jpg";
+import img4 from "../Assets/Images/img-4.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const images = [
-  "/src/Assets/Images/img-1.jpg",
-  "/src/Assets/Images/img-2.jpg",
-  "/src/Assets/Images/img-3.jpg",
-  "/src/Assets/Images/img-4.jpg",
+  img1,
+  img2,
+  img3,
+  img4,
 ];
 
 const JourneySection = () => {
