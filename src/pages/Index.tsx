@@ -3,7 +3,6 @@ import { CardStack } from "@/components/CardStack";
 import HomePage from "@/components/HomePage";
 import Navbar from "@/components/Navbar";
 import Mission from "@/components/Mission";
-import { Domain } from "domain";
 import DomainShowcase from "@/components/DomainShowcase";
 import JourneySection from "@/components/JourneySection";
 import OpenRoles from "@/components/OpenRoles";

@@ -2,15 +2,18 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import Image1 from "../Assets/Images/c1.jpg";
+import Image2 from "../Assets/Images/c2.jpg";
+import Image3 from "../Assets/Images/c3.jpg";
+import Image4 from "../Assets/Images/c4.jpg";
+import bg from "../Assets/Images/bg.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
-interface CardStackProps {
-  cards: string[];
-}
-
-export const CardStack = ({ cards }: CardStackProps) => {
+export const CardStack = () => {
   const stackRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const images = [Image1, Image2, Image3, Image4];
 
   useEffect(() => {
     if (!stackRef.current) return;
@@ -31,6 +34,7 @@ export const CardStack = ({ cards }: CardStackProps) => {
     cardElements.forEach((card, index) => {
       const totalCards = cardElements.length;
       const centerIndex = (totalCards - 1) / 2;
+
       const offset = (index - centerIndex) * 280;
       const rotation = (index - centerIndex) * 8;
       const verticalOffset = Math.abs(index - centerIndex) * 15;
@@ -56,61 +60,28 @@ export const CardStack = ({ cards }: CardStackProps) => {
   return (
     <div
       ref={stackRef}
-      className="card-stack-container min-h-screen flex items-center justify-center"
+      className="min-h-screen flex items-center justify-center"
     >
-      <div className="card-stack relative w-full max-w-7xl h-[500px] flex items-center justify-center">
-        {cards.map((imageSrc, index) => (
+      <div className="relative w-full max-w-7xl h-[500px] flex items-center justify-center">
+        {images.map((imageSrc, index) => (
           <div
             key={index}
             ref={(el) => (cardsRef.current[index] = el)}
-            className="card-container absolute"
-            style={{
-              zIndex: index,
-            }}
+            className="absolute"
+            style={{ zIndex: index }}
           >
             <div
-              className="card-3d w-[280px] h-[400px]"
+              className="w-[280px] h-[400px] rounded-2xl overflow-hidden shadow-2xl"
               style={{
                 transformStyle: "preserve-3d",
                 perspective: "1000px",
               }}
             >
-              <div
-                className="card-face front absolute inset-0 rounded-2xl overflow-hidden"
-                style={{
-                  backfaceVisibility: "hidden",
-                  transform: "rotateY(0deg)",
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.8)",
-                }}
-              >
-                <img
-                  src={imageSrc}
-                  alt={`Card ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
-              </div>
-              
-              <div
-                className="card-face back absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br from-primary via-accent to-primary"
-                style={{
-                  backfaceVisibility: "hidden",
-                  transform: "rotateY(180deg)",
-                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.8)",
-                }}
-              >
-                <div className="w-full h-full flex items-center justify-center p-8">
-                  <div className="text-center space-y-4">
-                    <div className="text-6xl font-bold text-background">
-                      {index + 1}
-                    </div>
-                    <div className="text-xl font-semibold text-background/90">
-                      Card {index + 1}
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30" />
-              </div>
+              <img
+                src={imageSrc}
+                alt={`Card ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         ))}
@@ -118,5 +89,3 @@ export const CardStack = ({ cards }: CardStackProps) => {
     </div>
   );
 };
-
-
