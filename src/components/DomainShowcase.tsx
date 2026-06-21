@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import blockchainImg from "../Assets/Images/block.jpg";
 import hackathonImg from "../Assets/Images/hack.jpg";
 import aiImg from "../Assets/Images/ai.jpg";
@@ -38,25 +39,23 @@ const DomainShowcase = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    ScrollTrigger.create({
+    const trigger = ScrollTrigger.create({
       trigger: sectionRef.current,
       start: "top top",
-      end: "+=900",
+      end: "+=100%",
       pin: true,
-      anticipatePin: 1,
     });
 
-    return () => ScrollTrigger.killAll();
+    return () => trigger.kill();
   }, []);
 
   const handleEnter = (index: number) => {
     cardsRef.current.forEach((card, i) => {
       gsap.to(card, {
-        z: i === index ? 140 : -60,
-        scale: i === index ? 1.07 : 0.95,
-        duration: 0.35,
+        z: i === index ? 120 : -40,
+        scale: i === index ? 1.05 : 0.95,
+        duration: 0.3,
         ease: "power3.out",
-        force3D: true,
       });
     });
   };
@@ -66,9 +65,8 @@ const DomainShowcase = () => {
       gsap.to(card, {
         z: 0,
         scale: 1,
-        duration: 0.35,
+        duration: 0.3,
         ease: "power3.out",
-        force3D: true,
       });
     });
   };
@@ -76,11 +74,34 @@ const DomainShowcase = () => {
   return (
     <section
       ref={sectionRef}
-      className="h-screen bg-black flex items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden "
       style={{ perspective: "1200px" }}
     >
-      <div className="stars absolute inset-0 z-0 pointer-events-none" />
-      <div className="flex gap-10 px-10">
+      <div
+  className="absolute inset-0 pointer-events-none"
+  style={{
+    backgroundColor: "#ffffff",
+    backgroundImage: `
+      radial-gradient(#d1d5db 1px, transparent 1px)
+    `,
+    backgroundSize: "20px 20px",
+  }}
+/>
+
+
+      <div className="relative z-10 mb-6 max-w-3xl text-center">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-lime-400 bg-lime-500/10 inline-block bold px-5 py-1 rounded-full outline outline-1 outline-lime-500/60">
+          What We Build
+        </p>
+        <h1 className="text-4xl font-bold italic text-foreground md:text-5xl lg:text-6xl">
+          Explore Our Domains
+        </h1>
+        <p className="mt-2 text-sm leading-6 text-foreground/70 md:text-base">
+          From emerging technologies to hands-on competitions, each track is designed to sharpen real-world skills and create confident builders.
+        </p>
+      </div>
+
+      <div className="relative z-10 flex flex-wrap justify-center gap-6 px-4 md:px-10">
         {domains.map((domain, i) => (
           <div
             key={i}
@@ -88,36 +109,35 @@ const DomainShowcase = () => {
             onMouseEnter={() => handleEnter(i)}
             onMouseLeave={handleLeave}
             className="
-              w-[280px] h-[420px]
+              w-full max-w-xs md:w-[280px]
+              h-[360px] md:h-[400px]
               rounded-3xl
-              bg-white/5
-              backdrop-blur
-              text-white
-              shadow-2xl
+              border border-white/10
+              bg-white/80
+              backdrop-blur-xl
+              text-foreground
+              shadow-[0_24px_80px_rgba(0,0,0,0.18)]
               cursor-pointer
               transform-gpu
-              will-change-transform
+              transition duration-300 ease-out
+              hover:-translate-y-2
             "
             style={{ transformStyle: "preserve-3d" }}
           >
-            {/* Image */}
-            <div className="h-[55%] overflow-hidden rounded-t-3xl">
+            <div className="h-40 overflow-hidden rounded-t-3xl md:h-[45%]">
               <img
                 src={domain.image}
                 alt={domain.title}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover transition duration-500 hover:scale-105"
               />
             </div>
 
-            {/* Content */}
-            <div className="p-6 space-y-4">
-              <h2 className="text-2xl font-bold">{domain.title}</h2>
+            <div className="space-y-4 p-6">
+              <h2 className="text-2xl font-bold tracking-tight">{domain.title}</h2>
 
-              <p className="text-sm text-white/70">
-                {domain.desc}
-              </p>
+              <p className="text-sm leading-6 text-foreground/70">{domain.desc}</p>
 
-              <button className="px-5 py-2 rounded-full bg-lime-400 text-black font-semibold text-sm">
+              <button className="rounded-full border border-foreground/10 bg-foreground px-5 py-2 text-sm font-semibold text-background transition hover:bg-foreground/90">
                 See More
               </button>
             </div>

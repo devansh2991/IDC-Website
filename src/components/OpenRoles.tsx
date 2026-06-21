@@ -50,7 +50,7 @@ const OpenRoles = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    ScrollTrigger.create({
+    const pin = ScrollTrigger.create({
       trigger: sectionRef.current,
       start: "top top",
       end: "+=120%",
@@ -58,7 +58,7 @@ const OpenRoles = () => {
       anticipatePin: 1,
     });
 
-    gsap.fromTo(
+    const titleAnim = gsap.fromTo(
       titleRef.current,
       { clipPath: "inset(0 100% 0 0)" },
       {
@@ -72,7 +72,7 @@ const OpenRoles = () => {
       }
     );
 
-    gsap.fromTo(
+    const rowsAnim = gsap.fromTo(
       rowsRef.current,
       { y: 24, autoAlpha: 0 },
       {
@@ -89,85 +89,83 @@ const OpenRoles = () => {
     );
 
     return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
+      pin.kill();
+      titleAnim.scrollTrigger?.kill();
+      rowsAnim.scrollTrigger?.kill();
+      titleAnim.kill();
+      rowsAnim.kill();
     };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen w-full bg-white text-black
-                 flex flex-col justify-center px-10 md:px-24"
+      className="relative min-h-screen w-full flex flex-col justify-center px-10 md:px-24 text-black"
     >
-      <h2
-        ref={titleRef}
-        className="text-6xl md:text-7xl font-bold tracking-widest
-                   font-mono mb-4"
-      >
-        OPEN ROLES
-      </h2>
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundColor: "#ffffff",
+          backgroundImage: "radial-gradient(#d1d5db 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+        }}
+      />
 
-      <p className="text-gray-500 mb-16 max-w-2xl">
-        Join our club and work on real-world projects with hands-on learning,
-        mentorship, and collaboration across technical domains.
-      </p>
+      <div className="relative z-10">
+        <h2
+          ref={titleRef}
+          className="text-6xl md:text-7xl font-bold tracking-widest font-mono italic mb-4"
+        >
+          OPEN ROLES
+        </h2>
 
-      <div className="grid grid-cols-7 gap-6 pb-4
-                      border-b border-black/20
-                      font-mono text-sm text-gray-500">
-        <span className="col-span-2">ROLE</span>
-        <span>SKILLS</span>
-        <span>DURATION</span>
-        <span>MODE</span>
-        <span>OPENINGS</span>
-        <span></span>
-      </div>
+        <p className="max-w-2xl text-gray-600 mb-10">
+          Join our club and work on real-world projects with hands-on learning,
+          mentorship, and collaboration across technical domains.
+        </p>
 
-      <div className="mt-6 space-y-6">
-        {roles.map((role, i) => (
-          <div
-            key={i}
-            ref={(el) => el && (rowsRef.current[i] = el)}
-            className="grid grid-cols-7 gap-6 items-center
-                       pb-4 border-b border-black/10
-                       font-mono"
-          >
-            <span className="col-span-2 text-lg font-semibold">
-              {role.title}
-            </span>
+        <div className="grid grid-cols-7 gap-6 pb-4 border-b border-black/20 font-mono text-sm text-gray-500">
+          <span className="col-span-2">ROLE</span>
+          <span>SKILLS</span>
+          <span>DURATION</span>
+          <span>MODE</span>
+          <span>OPENINGS</span>
+          <span></span>
+        </div>
 
-            <span className="text-sm text-gray-600">
-              {role.skills}
-            </span>
-
-            <span className="text-sm text-gray-600">
-              {role.duration}
-            </span>
-
-            <span className="text-sm text-gray-600">
-              {role.mode}
-            </span>
-
-            <span className="text-sm font-bold">
-              {role.openings}
-            </span>
-
-            <button
-              className="
-                justify-self-end
-                px-5 py-2
-                rounded-full
-                border border-black
-                text-sm font-semibold
-                transition
-                hover:bg-black hover:text-white
-                active:scale-95
-              "
+        <div className="mt-6 space-y-6">
+          {roles.map((role, i) => (
+            <div
+              key={i}
+              ref={(el) => (rowsRef.current[i] = el!)}
+              className="grid grid-cols-7 gap-6 items-center pb-4 border-b border-black/10 font-mono"
             >
-              Apply
-            </button>
-          </div>
-        ))}
+              <span className="col-span-2 text-lg font-semibold">
+                {role.title}
+              </span>
+
+              <span className="text-sm text-gray-600">
+                {role.skills}
+              </span>
+
+              <span className="text-sm text-gray-600">
+                {role.duration}
+              </span>
+
+              <span className="text-sm text-gray-600">
+                {role.mode}
+              </span>
+
+              <span className="text-sm font-bold">
+                {role.openings}
+              </span>
+
+              <button className="justify-self-end px-5 py-2 rounded-full border border-black text-sm font-semibold transition hover:bg-black hover:text-white active:scale-95">
+                Apply
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

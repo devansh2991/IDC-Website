@@ -178,38 +178,35 @@ const MentorsSection = () => {
       <section ref={sectionRef} className="relative bg-background">
         <div ref={triggerRef} className="min-h-screen flex flex-col justify-center overflow-hidden">
 
-          <div 
-            className="absolute inset-0 opacity-30 pointer-events-none"
-            style={{ 
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-            }}
-          />
+          <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundColor: "#ffffff",
+          backgroundImage: `
+            radial-gradient(#d1d5db 1px, transparent 1px)
+          `,
+          backgroundSize: "20px 20px",
+        }}
+      />
 
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-foreground/70" />
 
           <div className="container mx-auto px-6 md:px-12 relative z-10">
 
             <div className="max-w-xl mb-16">
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-medium text-foreground mb-6 leading-[1.1] italic">
-                Mentors of the club.
+              <h2 className="text-4xl font-bold italic md:text-5xl lg:text-6xl">
+                Mentors of the club
               </h2>
 
               <p className="font-body text-base md:text-lg text-muted-foreground max-w-md leading-relaxed mb-8">
                 we've curated the best mentors of the industry to bring the best experience out there.
               </p>
-
-              <div className="flex items-center gap-3 cursor-pointer group">
-                <ChevronDown className="w-4 h-4 text-foreground transition-transform group-hover:translate-y-1" />
-                <span className="font-body text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                  meet them
-                </span>
-              </div>
             </div>
 
             <div className="relative">
               <div 
                 ref={cardsRef}
-                className="flex gap-5 md:gap-6 will-change-transform"
+                className="mb-16 flex gap-5 md:gap-6 will-change-transform"
               >
                 {mentors.map((mentor, index) => (
                   <MentorCard

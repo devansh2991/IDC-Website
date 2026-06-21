@@ -1,127 +1,101 @@
 import { useEffect, useRef } from "react";
+import { ChevronDown } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import png from "../Assets/Images/png-2.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Mission = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const missionRef = useRef<HTMLDivElement>(null);
-  const workRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !missionRef.current || !workRef.current)
-      return;
+    const finalText =
+      "Our mission is to provide the best learning experience possible by connecting students with industry professionals.";
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=3000",
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*";
+    let interval: any;
+
+    const trigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "+=100%",
+      pin: true,
+      scrub: true,
+
+      onEnter: () => {
+        let iteration = 0;
+
+        interval = setInterval(() => {
+          if (!textRef.current) return;
+
+          const typed = finalText
+            .split("")
+            .map((letter, index) => {
+              if (index < iteration) return finalText[index];
+              return chars[Math.floor(Math.random() * chars.length)];
+            })
+            .join("");
+
+          textRef.current.innerHTML = typed;
+
+          if (iteration >= finalText.length) {
+            clearInterval(interval);
+          }
+
+          iteration += 0.5;
+        }, 30);
       },
     });
 
-    gsap.set(workRef.current, { opacity: 0, scale: 0.9 });
-    gsap.set(cardsRef.current, { opacity: 0, scale: 0.85 });
-
-    tl.to(missionRef.current, {
-      scale: 1.1,
-      ease: "none",
-    }, 0);
-
-    tl.to(missionRef.current, {
-      opacity: 0,
-      scale: 0.8,
-      ease: "power2.inOut",
-    }, 0.3);
-
-    tl.to(workRef.current, {
-      opacity: 1,
-      scale: 1,
-      ease: "power2.out",
-    }, 0.55);
-
-    tl.to(cardsRef.current, {
-      opacity: 1,
-      scale: 1,
-      stagger: 0.15,
-      ease: "power3.out",
-    }, 0.7);
-
     return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-      tl.kill();
+      if (interval) clearInterval(interval);
+      trigger.kill();
     };
   }, []);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative h-screen bg-black text-white overflow-hidden"
-    >
-      <div className="stars absolute inset-0 z-0 pointer-events-none" />
+    <section ref={sectionRef} className="relative overflow-hidden bg-background">
+      <div className="flex min-h-screen items-center px-6 py-20 md:px-12 lg:px-20">
 
-      <div
-        ref={missionRef}
-        className="absolute inset-0 flex items-center justify-center z-10"
-      >
-        <div className="max-w-5xl px-6 text-center space-y-8">
-          <h1 className="text-7xl md:text-6xl font-extrabold">
-            Our Mission
-          </h1>
-          <p className="text-xl md:text-2l text-white/80 leading-relaxed">
-            We create a culture where students learn by building, not just
-            studying. Instead of memorizing concepts, they apply them through
-            real-world projects that mirror industry challenges. Collaboration
-            is at the core of our approach—students work in teams, share ideas,
-            and grow together. This hands-on environment builds confidence,
-            practical skills, and a strong problem-solving mindset.
-          </p>
-        </div>
-      </div>
+       <div
+  className="absolute inset-0 pointer-events-none"
+  style={{
+    backgroundColor: "#ffffff",
+    backgroundImage: `
+      radial-gradient(#d1d5db 1px, transparent 1px)
+    `,
+    backgroundSize: "20px 20px",
+  }}
+/>
 
-      <div
-        ref={workRef}
-        className="absolute inset-0 flex items-center justify-center z-10"
-      >
-        <div className="max-w-6xl px-6">
-          <h2 className="text-6xl font-extrabold text-center mb-16">
-            What We Do
-          </h2>
+        <div className="absolute top-1/4 left-1/2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-foreground/70" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Build",
-                text:
-                  "We focus on hands-on development through real-world projects. Members build applications, tools, and systems that turn ideas into working products.",
-              },
-              {
-                title: "Learn",
-                text:
-                  "Learning happens through workshops, peer sessions, and practical exploration of modern technologies beyond classroom theory.",
-              },
-              {
-                title: "Grow",
-                text:
-                  "We help members grow through collaboration, mentorship, and exposure to industry practices that build confidence and career readiness.",
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                ref={(el) => el && (cardsRef.current[i] = el)}
-                className="p-8 rounded-3xl bg-white/5 backdrop-blur shadow-xl"
-              >
-                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
-                <p className="text-white/80 leading-relaxed">
-                  {item.text}
-                </p>
+        <div className="relative z-10 mx-auto w-full max-w-7xl">
+          <div className="flex flex-col items-center justify-between gap-12 md:flex-row">
+
+            <div className="flex max-w-xl flex-col">
+              <div className="min-h-[150px] mb-40">
+                <h2 className="text-4xl font-bold italic md:text-5xl lg:text-6xl">
+                  Our Mission
+                </h2>
+                <p
+                  ref={textRef}
+                  className="mt-6 max-w-md overflow-hidden text-base leading-8 tracking-wide text-foreground/80 md:text-lg"
+                ></p>
+                
               </div>
-            ))}
+            </div>
+
+            <div className="w-[240px] md:w-[360px] lg:w-[420px]">
+              <img
+                src={png}
+                alt="logo"
+                className="w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.18)]"
+              />
+            </div>
+
           </div>
         </div>
       </div>

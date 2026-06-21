@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink } from "@/components/NavLink";
 import { Menu, X } from "lucide-react";
 import gsap from "gsap";
+import logo from "../Assets/Images/png-1.png";
 
 const navItem =
   "relative text-sm font-semibold text-black cursor-pointer " +
@@ -62,9 +63,7 @@ const Navbar = () => {
     <nav className="fixed top-6 w-full z-50 flex justify-center font-[Poppins]">
       <div className="max-w-8xl w-full flex justify-between px-6">
 
-        <h1 className="text-white mix-blend-difference font-bold text-3xl">
-          IDC
-        </h1>
+            <img src={logo} alt="IDC Logo" className="w-20 h-20" />
 
         <div className="h-12 flex items-center rounded-full shadow-lg bg-lime-400">
 

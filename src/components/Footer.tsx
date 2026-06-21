@@ -51,6 +51,26 @@ const Footer = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const setPositions = () => {
+      const container = containerRef.current;
+      if (!container) return;
+      const baseWidth = 1400;
+      const scale = container.clientWidth / baseWidth;
+
+      stickers.forEach((s, i) => {
+        const el = stickerRefs.current[i];
+        if (!el) return;
+        el.style.left = `${Math.round(s.x * scale)}px`;
+        el.style.top = `${Math.round(s.y * scale)}px`;
+      });
+    };
+
+    setPositions();
+    window.addEventListener("resize", setPositions);
+    return () => window.removeEventListener("resize", setPositions);
+  }, []);
+
   return (
     <section
       ref={containerRef}
@@ -76,7 +96,7 @@ const Footer = () => {
             ref={(el) => el && (stickerRefs.current[i] = el)}
             src={s.src}
             alt=""
-            className="absolute w-24 cursor-grab active:cursor-grabbing select-none"
+            className="absolute w-12 sm:w-16 md:w-24 cursor-grab active:cursor-grabbing select-none"
             style={{ left: s.x, top: s.y }}
             draggable={false}
           />
@@ -105,12 +125,16 @@ const Footer = () => {
                       rounded-t-[100%]" />
 
       <div className="absolute bottom-0 left-0 w-full h-40 bg-black text-white">
-        <p className="absolute top-6 right-10 max-w-md text-sm text-white/80">
+        <p className="hidden md:block absolute top-6 right-10 max-w-md text-sm text-white/80">
           From shipping pixels with purpose to rewriting the rules with code —
           there&apos;s a bit of madness in our method.
         </p>
 
-        <h1 className="absolute bottom-6 left-10 text-[96px] font-extrabold">
+        <p className="md:hidden absolute top-4 left-1/2 -translate-x-1/2 text-sm text-white/80 px-6 text-center">
+          From shipping pixels with purpose to rewriting the rules with code — there&apos;s a bit of madness in our method.
+        </p>
+
+        <h1 className="absolute bottom-6 left-6 md:left-10 mb-8 text-4xl md:text-[96px] font-extrabold">
           IDC
         </h1>
 

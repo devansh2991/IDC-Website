@@ -23,17 +23,13 @@ const Index = () => {
       <Mission />
       <JourneySection />
       <DomainShowcase />
-      <section className="relative py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <CardStack cards={cards} />
-        </div>
-      </section>
+      <CardStack cards={cards} />
 
       <MentorsSection />
       <OpenRoles />
       <Footer />
     </main>
-    
+
   );
 };
 
